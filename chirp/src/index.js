@@ -19,15 +19,9 @@ var client = require('coffea')({
 });
 
 client.on('message', function (event) {
-  console.log(event.channel.name, event.user.nick, event.message);
   const t = twitterCheck(event.message).then(msg => {
     if(msg){
       event.reply(msg)
     }
   });
 });
-
-client.on('command', function (event) {
-  console.log(event.channel.name, event.user.nick, event.message);
-});
-
