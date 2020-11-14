@@ -1,0 +1,22 @@
+version: '3.1'
+services:
+  chirp:
+    build:
+      context: ./chirp
+      dockerfile: Dockerfile
+    volumes:
+      - ./chirp/src/:/app/src
+    environment:
+      TWITTER_CONSUMER_KEY: ''
+      TWITTER_CONSUMER_SECRET: ''
+      TWITTER_BEARER_TOKEN: ''
+      CHIRPIRC_HOST: ''
+      CHIRPIRC_HOST_PORT: 6667
+      CHIRPIRC_CHANNEL: ''
+      CHIRPIRC_NICK: ''
+      CHIRPIRC_USERNAME: ''
+      CHIRPIRC_REALNAME: ''
+      CHIRPIRC_PASS: ''
+      CHIRPIRC_NICKSERV_USERNAME: ''
+      CHIRPIRC_NICKSERV_PASS: ''
+    command: npm run start

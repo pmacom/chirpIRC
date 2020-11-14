@@ -1,0 +1,18 @@
+{
+  "name": "bottweet",
+  "version": "1.0.0",
+  "description": "IRC bot that chirps a tweet message if a twitter url is said in the channel",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "coffea": "^0.4.29",
+    "twitter": "^1.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
