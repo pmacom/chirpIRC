@@ -26,7 +26,6 @@ const getTweet = async id => {
   const formattedText = decodedText.replace(/\n/g, "::");
   const date = new Date(created_at);
   const formattedDate = dateFormat(date, "yyyy-mm-dd h:MM:ss");
-  console.log(formattedDate);
   return `{TWEET} ¸.•*¨*•♫♪ ${name} (@${screen_name}) -- ${formattedText} :: ${formattedDate} :: ${timeago(created_at, 'en_US')}`;
 }
 
