@@ -1,4 +1,7 @@
-var Twitter = require('twitter');
+const Twitter = require('twitter');
+const Entities = require('html-entities').AllHtmlEntities;
+const timeago = require('timeago.js').format;
+const dateFormat = require('dateformat');
 
 var tclient = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
@@ -15,11 +18,16 @@ const checkMessage = message => {
 }
 
 const getTweet = async id => {
+  const entities = new Entities();
   const res = await tclient.get('statuses/show', {id, tweet_mode: 'extended'});
-  const { full_text, created_at, entities, user } = res;
+  const { full_text, created_at, user } = res;
   const { name, screen_name } = user;
-  const formattedText = full_text.replace(/\n/g, "::");
-  return `{TWEET} -- ${name} (@${screen_name}) :: ${formattedText} :: ${created_at}`;
+  const decodedText = entities.decode(full_text);
+  const formattedText = decodedText.replace(/\n/g, "::");
+  const date = new Date(created_at);
+  const formattedDate = dateFormat(date, "yyyy-mm-dd h:MM:ss");
+  console.log(formattedDate);
+  return `{TWEET} ¸.•*¨*•♫♪ ${name} (@${screen_name}) -- ${formattedText} :: ${formattedDate} :: ${timeago(created_at, 'en_US')}`;
 }
 
 const twitterCheck = async message => {
