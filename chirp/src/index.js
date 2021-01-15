@@ -1,4 +1,24 @@
-var twitterCheck = require('./twitterCheck');
+const twitterCheck = require('./twitterCheck');
+const tweetShot = require('tweet-shot');
+const ts = require('./tweetShot');
+
+const saveTweetImage = async tweet => {
+  // const shot = await tweetShot(url, { dest: '/chirp'});
+  //console.log('SHOT', shot);
+
+  const res = await ts(tweet, { testURL: 'thinggy' });
+  console.log(res);
+  // await screenshotTweet(
+  //   url,
+  //   // `${id}.jpg`
+  // ).then(() => {
+  //   console.log("Success");
+  // }).catch(error => {
+  //   console.error("Error");
+  // });
+
+  // console.log('uh?');
+}
 
 var client = require('coffea')({
   host: process.env.CHIRPIRC_HOST,
@@ -19,9 +39,11 @@ var client = require('coffea')({
 });
 
 client.on('message', function (event) {
-  const t = twitterCheck(event.message).then(msg => {
-    if(msg){
-      event.reply(msg)
+  const t = twitterCheck(event.message).then(async obj => {
+    if(obj){
+      console.log('OBJEEECT', obj);
+      await saveTweetImage(obj)
+      event.reply(obj.msg)
     }
   });
 });

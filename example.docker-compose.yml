@@ -19,4 +19,5 @@ services:
       CHIRPIRC_PASS: ''
       CHIRPIRC_NICKSERV_USERNAME: ''
       CHIRPIRC_NICKSERV_PASS: ''
+      CHROME_BIN: '/usr/bin/chromium-browser'
     command: npm run start

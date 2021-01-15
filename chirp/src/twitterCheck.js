@@ -26,14 +26,27 @@ const getTweet = async id => {
   const formattedText = decodedText.replace(/\n/g, "::");
   const date = new Date(created_at);
   const formattedDate = dateFormat(date, "yyyy-mm-dd h:MM:ss");
-  return `{TWEET} ¸.•*¨*•♫♪ ${name} (@${screen_name}) -- ${formattedText} :: ${formattedDate} :: ${timeago(created_at, 'en_US')}`;
+
+  return ({
+    tweet: res,
+    msg: `{TWEET} ¸.•*¨*•♫♪ ${name} (@${screen_name}) -- ${formattedText} :: ${formattedDate} :: ${timeago(created_at, 'en_US')}`,
+  })
+  // return `{TWEET} ¸.•*¨*•♫♪ ${name} (@${screen_name}) -- ${formattedText} :: ${formattedDate} :: ${timeago(created_at, 'en_US')}`;
 }
 
 const twitterCheck = async message => {
   const validMessage = checkMessage(message);
   if(validMessage){
-    const tweet = await getTweet(validMessage.id);
-    return tweet;
+    const _tweet = await getTweet(validMessage.id);
+    const { msg, tweet } = _tweet;
+    const { url, id } = validMessage;
+    return {
+      userId: tweet.user.id,
+      url,
+      id,
+      msg,
+      tweet,
+    }
   }
 }
 
